@@ -11,5 +11,5 @@ HiC2Self: Self-supervised Hi-C contact map denoising
 
 ## Keep connected 
 
-Email: [ruy4001@med.cornell.edu](ruy4001@med.cornell.edu)
-twitter: [@RuiYang53922541](https://twitter.com/RuiYang53922541)
+- Email: [ruy4001@med.cornell.edu](ruy4001@med.cornell.edu), [ruiyang204@gmail.com](ruiyang204@gmail.com)
+- twitter: [@RuiYang53922541](https://twitter.com/RuiYang53922541)
