@@ -1,0 +1,30 @@
+name: hic2self_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.10
+  - numpy
+  - pytorch
+  - torchvision
+  - pickle
+  - argparse
+  - os
+  - sys
+  - matplotlib
+  - seaborn
+  - datetime
+  - time
+  - collections
+  - scikit-learn
+  - scipy
+  - coolbox
+  - h5py
+  - umap-learn
+  - matplotlib-base
+  - anndata
+  - pip
+  - pip:
+    - pytorch-ssim
+    - coolbox
