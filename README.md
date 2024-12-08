@@ -1,8 +1,8 @@
 # HiC2Self
 
-HiC2Self: Self-supervised Hi-C contact map denoising 
+HiC2Self: Self-supervised denoising for bulk and single-cell Hi-C contact maps 
 
-- Abstract: [ICML-WCB abstract](https://icml-compbio.github.io/2023/papers/WCBICML2023_paper147.pdf)
+- Manuscript: [bioRxiv]([https://www.biorxiv.org/content/10.1101/2024.11.21.624767v1](https://www.biorxiv.org/content/10.1101/2024.11.21.624767v1))
 - Poster: HiC2Self_poster.pdf
 
 ## Create environment
@@ -12,4 +12,4 @@ HiC2Self: Self-supervised Hi-C contact map denoising
 ## Keep connected 
 
 - Email: [ruy4001@med.cornell.edu](ruy4001@med.cornell.edu), [ruiyang204@gmail.com](ruiyang204@gmail.com)
-- twitter: [@RuiYang53922541](https://twitter.com/RuiYang53922541)
+- others: [@RuiYang53922541](https://twitter.com/RuiYang53922541), [@ruiyang.bsky.social](https://bsky.app/profile/ruiyang.bsky.social)
