@@ -2,7 +2,7 @@
 
 HiC2Self: Self-supervised denoising for bulk and single-cell Hi-C contact maps 
 
-- Manuscript: [bioRxiv]([https://www.biorxiv.org/content/10.1101/2024.11.21.624767v1](https://www.biorxiv.org/content/10.1101/2024.11.21.624767v1))
+- Manuscript: [bioRxiv](https://www.biorxiv.org/content/10.1101/2024.11.21.624767v1)
 - Poster: HiC2Self_poster.pdf
 
 ## Create environment
