@@ -46,13 +46,13 @@ control_df.to_csv(f'{EXTRACT_PTH}/Extracted_5k_chr3.txt',sep='\t',index=None)
 
 ## 2. Convert to trainable format
 
+```
 mkdir -p /data/GM12878/processed
 mkdir -p /data/assembly
 cd /data/assembly
 wget https://hgdownload.soe.ucsc.edu/goldenpath/hg38/bigZips/hg38.chrom.sizes
 cd /HiC2Self/data_processing
 
-```
 chrom='chr3'
 python /HiC2Self/data_processing/bulk_retrain_preparation_fullchr_split.py \
 --input_dir /data/GM12878/hic_extraction \
