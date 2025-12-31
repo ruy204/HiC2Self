@@ -1,46 +1,66 @@
 #!/bin/bash
+set -e
 
-# Clean up environment for HiC2Self -- Dec 4, 2025
+# ======================================
+# HiC2Self environment setup script
+# ======================================
 
-ENV_PTH="/data1/lesliec/yangr/lilac_yangr2/environments"
+# Get the directory of this script (repo root)
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-#1. Download and install conda and mamba 
-cd "${ENV_PTH}" # cd into the lab folder, create an environment folder to store all the environments 
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-bash Miniconda3-latest-Linux-x86_64.sh
+# Define environment paths relative to repo
+ENV_DIR="${REPO_DIR}/envs"
+ENV_NAME="hic2self_env"
+ENV_PATH="${ENV_DIR}/${ENV_NAME}"
 
-# eval "$(/data1/lesliec/yangr/lilac_yangr2/environments/miniconda3/bin/conda shell.YOUR_SHELL_NAME hook)"
+echo "Repo directory: ${REPO_DIR}"
+echo "Environment path: ${ENV_PATH}"
 
-# add miniconda3 to PATH
-export PATH="${ENV_PTH}/miniconda3/bin:$PATH"
-source ~/.bashrc
-# test whether conda was added to PATH
-which conda
+# --------------------------------------
+# 1. Install Miniconda (if not exists)
+# --------------------------------------
+if [ ! -d "${ENV_DIR}/miniconda3" ]; then
+    echo "Installing Miniconda..."
+    mkdir -p "${ENV_DIR}"
+    cd "${ENV_DIR}"
 
-#2. Install mamba and create mamba environment 
-# Install mamba in the base environment 
-conda install mamba -n base -c conda-forge
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p "${ENV_DIR}/miniconda3"
+fi
 
-#3. Create environment and install the packages 
+# Activate conda
+export PATH="${ENV_DIR}/miniconda3/bin:$PATH"
+source "${ENV_DIR}/miniconda3/etc/profile.d/conda.sh"
+
+# --------------------------------------
+# 2. Install mamba
+# --------------------------------------
+conda install -y -n base -c conda-forge mamba
+
+# --------------------------------------
+# 3. Create environment from YAML
+# --------------------------------------
 mamba env create \
-    --prefix /data1/lesliec/yangr/lilac_yangr2/environments/hic2self_env \
-    --file /data1/lesliec/yangr/lilac_yangr2/hic2self/environment.yml
+    --prefix "${ENV_PATH}" \
+    --file "${REPO_DIR}/environment.yml"
 
-#4. Activate the environment 
-eval "$(mamba shell hook --shell bash)"
-mamba activate /data1/lesliec/yangr/lilac_yangr2/environments/hic2self_env
+# --------------------------------------
+# 4. Activate environment
+# --------------------------------------
+mamba activate "${ENV_PATH}"
 
-# echo 'eval "$(mamba shell hook --shell bash)"' >> ~/.bashrc
-# alias hic2env="mamba activate /data1/lesliec/yangr/lilac_yangr2/environments/hic2self_env"
+# --------------------------------------
+# 5. (Optional) Jupyter kernel
+# --------------------------------------
+python -m ipykernel install --user --name hic2self --display-name "Python (hic2self)"
 
-#5. Install additional packages 
-# pip install wandb --upgrade
-# wandb login 
-# wandb profile appended: /home/BTC_yangr/.netrc
+# --------------------------------------
+# 6. Environment variables (optional)
+# --------------------------------------
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-#6. Create jupyter environment
-export JUPYTER_DATA_DIR=/data1/lesliec/yangr/lilac_yangr2/hic2self/notebooks
-python -m ipykernel install --user --name=pytorch_env --display-name "Python (pytorch_env)"
-export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:Trues
-
-
+echo "======================================"
+echo "HiC2Self environment setup complete!"
+echo "Activate with:"
+echo "  mamba activate ${ENV_PATH}"
+echo "======================================"
