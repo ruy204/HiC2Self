@@ -1,60 +1,32 @@
 # Script for loading updated model and mask functions when checking results in the jupyter notebook
-
-import numpy as np
+import numpy as np 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import torchvision.transforms as transforms
+from torch.nn import MSELoss
+from torch.optim import Adam
+from torch.utils.data import DataLoader
+import torch.optim as optim
 import pickle
 import argparse, os, sys
 import matplotlib.pyplot as plt
+torch.set_default_tensor_type(torch.DoubleTensor)
 from datetime import datetime
-from pathlib import Path
+
+sys.path.append('/data/leslie/yangr2/hic2self/scripts')
+from data_preparation import *
+# from hic2self_train_gpu import *
+from hic2self_model import *
+from data_utils import *
 import time
 
-torch.set_default_tensor_type(torch.DoubleTensor)
+sys.path.append('/data/leslie/yangr2/setd2/train_setd2/scripts/')
+import pytorch_ssim
+chrom_len = {item.split()[0]:int(item.strip().split()[1]) for item in open('/home/yangr2/assembly/hg38.chrom.sizes').readlines()}
 
-# ----------------------------
-# Repo-relative imports
-# ----------------------------
-THIS_DIR = Path(__file__).resolve().parent                         # .../prediction_postprocessing/utils
-REPO_ROOT = THIS_DIR.parents[1]                                    # repo root
-PRED_POST_DIR = REPO_ROOT / "prediction_postprocessing"
-TRAIN_UTILS_DIR = REPO_ROOT / "model_training" / "utils"
-
-sys.path.append(str(THIS_DIR))             # so "data_preparation" works
-sys.path.append(str(PRED_POST_DIR / "utils"))
-sys.path.append(str(TRAIN_UTILS_DIR))      # data_utils_hic2self, etc
-
-from data_preparation import *
-from hic2self_model import *
-
-# If you truly need training utilities here:
-try:
-    from data_utils_hic2self import *
-except Exception as e:
-    print("[results_utils] Warning: could not import data_utils_hic2self:", repr(e))
-
-# Optional deps: allow notebook use even if not installed
-try:
-    import pytorch_ssim
-except Exception:
-    pytorch_ssim = None
-
-try:
-    import coolbox
-    from coolbox.api import *
-except Exception:
-    coolbox = None
-
-def load_chrom_len(chrom_sizes_file: str):
-    chrom_len = {}
-    with open(chrom_sizes_file, "r") as f:
-        for line in f:
-            if not line.strip():
-                continue
-            chrom, length = line.split()[:2]
-            chrom_len[chrom] = int(length)
-    return chrom_len
+import coolbox
+from coolbox.api import *
 
 from sklearn.decomposition import TruncatedSVD
 
