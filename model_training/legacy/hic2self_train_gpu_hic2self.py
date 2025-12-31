@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 import torch.optim as optim
 import pickle
 import argparse, os
-from hic2self_train_gpu_hic2self import *
+from model_training.legacy.hic2self_train_gpu_hic2self import *
 from hic2self_model_SVD_mask import *
 from data_utils_hic2self import *
 import time
@@ -18,7 +18,7 @@ import time
 print(torch.__version__)
 
 '''
-Script for training HiC2Self on logFC of SETD2 mutation 
+NOT MAINTAINED - just for reference
 
 Usage example: 
 screen
