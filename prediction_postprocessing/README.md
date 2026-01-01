@@ -2,7 +2,7 @@
 
 This folder contains utilities to (1) run inference with a trained HiC2Self model and generate **chromosome-scale predictions**, and (2) call **significant interactions** from predicted contact maps using **HiC-DC+**.
 
-## Step 1 — Generate chromosome-scale predictions (GPU)
+## Step 1. Generate chromosome-scale predictions (GPU)
 
 This step loads:
 - a trained HiC2Self checkpoint (`.pt_model`)
@@ -74,7 +74,7 @@ data/GM12878/predictions/
   GM12878_predictions_5000_chr3_log0.01_maskwidth3_symmetric_grid_predictions_for_hic.txt
 ```
 
-## b) Step 2. Call significant interactions using HiC-DC+
+## Step 2. Call significant interactions using HiC-DC+ (R)
 
 ### Install HiC-DC+
 
